@@ -26,7 +26,11 @@ def main():
         types.Content(role="user", parts=[types.Part(text=user_prompt)]),
     ]
 
-    generate_content(client, messages)
+    if "--verbose" in args:
+        print("Verbose mode enabled.")
+        generate_content_verbose(client, messages, user_prompt)
+    else:
+        generate_content(client, messages)
 
 
 def generate_content(client, messages):
@@ -36,6 +40,16 @@ def generate_content(client, messages):
     )
     print("Response:")
     print(response.text)
+
+
+def generate_content_verbose(client, messages, user_prompt):
+    response = client.models.generate_content(
+        model="gemini-2.0-flash-001",
+        contents=messages,
+    )
+    print(f"User prompt: {user_prompt}")
+    print("Prompt tokens:", response.usage_metadata.prompt_token_count)
+    print("Response tokens:", response.usage_metadata.candidates_token_count)
 
 
 if __name__ == "__main__":

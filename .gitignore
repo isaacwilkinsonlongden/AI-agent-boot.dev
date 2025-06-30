@@ -1,2 +1,3 @@
 venv/
 .env
+calculator/pkg/__pycache__/

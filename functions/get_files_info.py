@@ -85,5 +85,43 @@ schema_get_files_info = types.FunctionDeclaration(
 )
 
 
+# Read file contents
+schema_get_file_content = types.FunctionDeclaration(
+    name="get_file_content",
+    description="Reads a file's contents (truncated to a safe limit) within the working directory.",
+    parameters=types.Schema(
+        type=types.Type.OBJECT,
+        properties={
+            "file_path": types.Schema(
+                type=types.Type.STRING,
+                description="Path to the file, relative to the working directory.",
+            ),
+        },
+        required=["file_path"],
+    ),
+)
+
+# Write / overwrite a file
+schema_write_file = types.FunctionDeclaration(
+    name="write_file",
+    description="Writes (creates or overwrites) a file in the working directory.",
+    parameters=types.Schema(
+        type=types.Type.OBJECT,
+        properties={
+            "file_path": types.Schema(
+                type=types.Type.STRING,
+                description="Path to write, relative to the working directory.",
+            ),
+            "content": types.Schema(
+                type=types.Type.STRING,
+                description="Text content to write to the file.",
+            ),
+        },
+        required=["file_path", "content"],
+    ),
+)
+
+
+
     
     
